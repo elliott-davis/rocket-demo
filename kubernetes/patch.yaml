@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rocket-demo
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: init-command
+          image: debian
+          command: ["/bin/sh"]
+          args: ["-c", "echo $(ROCKET_DEMO_SERVICE); echo $(POSTGRES_SERVICE)"]
+      containers:
+        - name: rocket-demo
+          env:
+          - name: ROCKET_DATABASES
+            value: '{rocket-demo={url="postgres://postgres:postgres@$(POSTGRES_SERVICE)/rocket-demo"}}'

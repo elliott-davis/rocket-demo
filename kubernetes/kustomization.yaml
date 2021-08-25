@@ -1,0 +1,18 @@
+resources:
+  - rocket-demo
+  - postgres
+patchesStrategicMerge:
+  - patch.yaml
+vars:
+  - name: ROCKET_DEMO_SERVICE
+    objref:
+      kind: Service
+      name: rocket-demo
+      apiVersion: v1
+    fieldref:
+      fieldpath: metadata.name
+  - name: POSTGRES_SERVICE
+    objref:
+      kind: Service
+      name: postgres
+      apiVersion: v1

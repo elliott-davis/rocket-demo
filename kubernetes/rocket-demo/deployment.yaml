@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rocket-demo
+  labels:
+    app: rocket-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: rocket-demo
+  template:
+    metadata:
+      labels:
+        deployment: rocket-demo
+    spec:
+      containers:
+      - name: rocket-demo
+        image: libsysguy/rocket-demo
+        ports:
+        - containerPort: 8000
+        env:
+          - name: ROCKET_ADDRESS
+            value: 0.0.0.0
